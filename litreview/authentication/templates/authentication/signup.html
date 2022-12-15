@@ -1,12 +1,14 @@
 {% extends 'base.html' %}
 {% block content %}
-<h2>Inscription</h2>
-{% if form.errors %}
-{{ form.errors }}
-{% endif %}
-<form method="post">
-    {{ form.as_p }}
-    {% csrf_token %}
-    <button type="submit">S’inscrire</button>
-</form>
+    {% load static %}
+    <link rel="stylesheet" href="{% static 'authentication/signup.css' %}">
+    <div class="signup">
+        <h2>Inscrivez-vous</h2>
+        {% if form.errors %}{{ form.errors }}{% endif %}
+        <form method="post">
+            {{ form.as_p }}
+            {% csrf_token %}
+            <button type="submit">S’inscrire</button>
+        </form>
+    </div>
 {% endblock content %}
