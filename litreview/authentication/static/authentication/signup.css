@@ -2,4 +2,18 @@
     display: flex;
     flex-direction: column;
     text-align: center;
+    margin: 100px;
+}
+
+.fieldwrapper {
+    margin: 10px;
+}
+
+.help {
+    margin: 0px;
+    font-size: 13px;
+}
+
+form {
+    margin: 10px 0px 10px 0px;
 }

@@ -17,7 +17,8 @@ from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
 
-import critics.views
+
+from critics.views import TicketCreateView
 import authentication.views
 
 urlpatterns = [
@@ -34,8 +35,13 @@ urlpatterns = [
         LogoutView.as_view(),
         name="logout",
     ),
-    path("home/", critics.views.home, name="home"),
-    # path("", include("critics.urls")),
+    # path("flux/", critics.views.flux, name="flux"),
+    path("flux/", include("critics.urls")),
     path("admin/", admin.site.urls),
     path("signup/", authentication.views.signup_page, name="signup"),
+    path(
+        "createticket/",
+        TicketCreateView.as_view(),
+        name="create_ticket",
+    ),
 ]

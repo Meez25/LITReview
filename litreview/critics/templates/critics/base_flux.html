@@ -1,0 +1,16 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extrahead %}
+    <link rel="stylesheet" href='{% static "critics/flux.css" %}'>
+{% endblock extrahead %}
+{% block content %}
+<div class="container">
+    <div class="button_pair">
+        <a href="">Demander une critique</a>
+        <a href="/createticket">Créer une critique</a>
+    </div>
+</div>
+
+{% endblock content %}

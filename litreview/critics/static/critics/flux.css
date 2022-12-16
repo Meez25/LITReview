@@ -1,0 +1,21 @@
+.container {
+    display: flex;
+    justify-content: center;
+}
+
+.button_pair {
+    justify-content: center;
+    display: grid;
+    grid-template-columns: repeat(2, 300px);
+    width: 600px;
+}
+
+.button_pair a:nth-child(1) {
+    text-align: center;
+    grid-column: 1;
+}
+
+.button_pair a:nth-child(2) {
+    text-align: center;
+    grid-column: 2;
+}
