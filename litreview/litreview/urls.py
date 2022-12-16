@@ -20,7 +20,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 
 
-from critics.views import TicketCreateView, ReviewCreateView
+import critics.views
 import authentication.views
 
 urlpatterns = [
@@ -43,12 +43,12 @@ urlpatterns = [
     path("signup/", authentication.views.signup_page, name="signup"),
     path(
         "createticket/",
-        TicketCreateView.as_view(),
+        critics.views.TicketCreateView.as_view(),
         name="create_ticket",
     ),
     path(
         "createreview/",
-        ReviewCreateView.as_view(),
+        critics.views.create_review,
         name="create_review",
     ),
 ]
