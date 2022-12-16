@@ -16,9 +16,11 @@ Including another URLconf
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
 from django.urls import path, include
+from django.conf import settings
+from django.conf.urls.static import static
 
 
-from critics.views import TicketCreateView
+from critics.views import TicketCreateView, ReviewCreateView
 import authentication.views
 
 urlpatterns = [
@@ -44,4 +46,11 @@ urlpatterns = [
         TicketCreateView.as_view(),
         name="create_ticket",
     ),
+    path(
+        "createreview/",
+        ReviewCreateView.as_view(),
+        name="create_review",
+    ),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

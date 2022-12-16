@@ -1,4 +1,16 @@
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extrahead %}
+    <link rel="stylesheet" href='{% static "critics/ticket_form.css" %}'>
+{% endblock extrahead %}
+{% block content %}
+<div class="container">
+    <h2>Créer un ticket</h2>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Save">
+    </form>
+</div>
+{% endblock content %}
