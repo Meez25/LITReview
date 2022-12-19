@@ -1,1 +1,16 @@
-<h1>hey coucou {{ ticket.id }}</h1>
+{% extends "base.html" %}
+{% load static %}
+
+{% block extrahead %}
+    <link rel="stylesheet" href='{% static "critics/ticket_form.css" %}'>
+{% endblock extrahead %}
+{% block content %}
+<div class="container">
+    <h2>Modifier le ticket</h2>
+    <form method="post">
+        {{ ticket_form.as_p }}
+        {% csrf_token %}
+        <button type="submit">Sauvegarder</button>
+    </form>
+</div>
+{% endblock content %}

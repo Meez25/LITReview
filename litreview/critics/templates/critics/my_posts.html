@@ -14,7 +14,6 @@
             <h2>{{ ticket.title }}</h2>
             <p class="description">{{ ticket.description }}</p>
             <img src="{{ ticket.image.url }}" alt="Image du ticket">
-            <p>{{ ticket.id }}</p>
             <a href="{% url 'modify_post' ticket.id %}">Modifier</a>
         </div>
     {% endfor %}

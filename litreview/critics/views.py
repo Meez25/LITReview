@@ -31,8 +31,17 @@ def my_posts(request):
 def modify_post(request, ticket_id):
     user = request.user
     ticket = get_object_or_404(Ticket, id=ticket_id)
+    ticket_form = TicketForm(instance=ticket)
+    if request.method == "POST":
+        ticket_form = TicketForm(request.POST, instance=ticket)
+        if ticket_form.is_valid():
+            ticket = ticket_form.save(commit=False)
+            ticket.user = request.user  # Add the user to the ticket object
+            ticket.save()
+            return redirect("flux")
     context = {
         "ticket": ticket,
+        "ticket_form": ticket_form,
     }
     return render(request, "critics/modify_post.html", context)
 
