@@ -11,6 +11,13 @@
         <a href="/createticket">Demander une critique</a>
         <a href="/createreview">Créer une critique</a>
     </div>
+    
+    {% for ticket in tickets %}
+        <div class="ticket">
+            <h1>{{ ticket.title }}</h1>
+            <p>{{ ticket.description }}</p>
+        </div>
+    {% endfor %}
 </div>
 
 {% endblock content %}

@@ -1,9 +1,11 @@
 .container {
     display: flex;
     justify-content: center;
+    flex-direction: column;
 }
 
 .button_pair {
+    margin: auto;
     justify-content: center;
     display: grid;
     grid-template-columns: repeat(2, 300px);
@@ -18,4 +20,15 @@
 .button_pair a:nth-child(2) {
     text-align: center;
     grid-column: 2;
+}
+
+.ticket {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    outline: 2px black solid;
+    width: 1200px;
 }

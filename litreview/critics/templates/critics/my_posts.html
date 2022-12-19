@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extrahead %}
+    <link rel="stylesheet" href='{% static "critics/my_posts.css" %}'>
+{% endblock extrahead %}
+{% block content %}
+<div class="container">
+    {% for ticket in tickets %}
+        <div class="ticket">
+            <p>Vous avez publié un ticket</p>
+            <p class="date">{{ ticket.time_created}}</p>
+            <h2>{{ ticket.title }}</h2>
+            <p class="description">{{ ticket.description }}</p>
+            <img src="{{ ticket.image.url }}" alt="Image du ticket">
+            <p>{{ ticket.id }}</p>
+            <a href="{% url 'modify_post' ticket.id %}">Modifier</a>
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock content %}

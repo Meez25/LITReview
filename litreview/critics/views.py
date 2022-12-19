@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from critics.models import Ticket, Review
@@ -10,7 +10,31 @@ from .forms import TicketForm, ReviewForm
 
 @login_required
 def flux(request):
-    return render(request, "critics/base_flux.html")
+    all_tickets = Ticket.objects.all()
+    context = {
+        "tickets": all_tickets,
+    }
+    return render(request, "critics/base_flux.html", context)
+
+
+@login_required
+def my_posts(request):
+    user = request.user
+    all_tickets = Ticket.objects.filter(user__exact=user).order_by("-time_created")
+    context = {
+        "tickets": all_tickets,
+    }
+    return render(request, "critics/my_posts.html", context)
+
+
+@login_required
+def modify_post(request, ticket_id):
+    user = request.user
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    context = {
+        "ticket": ticket,
+    }
+    return render(request, "critics/modify_post.html", context)
 
 
 class TicketCreateView(LoginRequiredMixin, CreateView):
@@ -32,18 +56,19 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
 
 @login_required
 def create_review(request):
+    # Create two forms for the review form
     ticket_form = TicketForm()
     review_form = ReviewForm()
     if request.method == "POST":
         ticket_form = TicketForm(request.POST, request.FILES)
         review_form = ReviewForm(request.POST)
-        if any([ticket_form.is_valid(), review_form.is_valid()]):
+        if ticket_form.is_valid() and review_form.is_valid():
             ticket = ticket_form.save(commit=False)
-            ticket.user = request.user
+            ticket.user = request.user  # Add the user to the ticket object
             ticket.save()
             review = review_form.save(commit=False)
-            review.ticket = ticket
-            review.user = request.user
+            review.ticket = ticket  # Add the ticket to the review object
+            review.user = request.user  # Add the user to the review object
             review.save()
             return redirect("flux")
     context = {

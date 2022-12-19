@@ -38,7 +38,9 @@ urlpatterns = [
         name="logout",
     ),
     # path("flux/", critics.views.flux, name="flux"),
-    path("flux/", include("critics.urls")),
+    path("flux/", critics.views.flux, name="flux"),
+    path("posts/", critics.views.my_posts, name="my_posts"),
+    path("posts/<int:ticket_id>/modify", critics.views.modify_post, name="modify_post"),
     path("admin/", admin.site.urls),
     path("signup/", authentication.views.signup_page, name="signup"),
     path(

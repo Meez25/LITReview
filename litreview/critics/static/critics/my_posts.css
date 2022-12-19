@@ -1,0 +1,30 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+
+.ticket {
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    margin-top: 50px;
+    display: flex;
+    justify-content: center;
+    outline: 2px black solid;
+    width: 900px;
+    padding: 10px;
+}
+
+img {
+    width: 300px;
+    margin: 10px 0px 0px 0px;
+}
+
+.date {
+    text-align: right;
+}
+
+.description {
+    padding: 10px 0px 10px 0px;
+}
