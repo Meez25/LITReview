@@ -1,9 +1,11 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
-from critics.models import Ticket, Review
+from critics.models import Ticket, Review, UserFollows
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import TicketForm, ReviewForm
+from .forms import TicketForm, ReviewForm, FollowForm
+from authentication.models import User
+from django.db import IntegrityError
 
 # Create your views here.
 
@@ -28,8 +30,52 @@ def my_posts(request):
 
 
 @login_required
+def abonnement(request):
+    if request.method == "POST":
+        form = FollowForm(request.POST)
+        if form.is_valid():
+            username = form.cleaned_data["followed_user"]
+            current_user = request.user
+            try:
+                user_follow = User.objects.get(username__exact=username)
+                if user_follow == current_user:
+                    form = FollowForm()
+                    context = {
+                        "userfollow_form": form,
+                        "error": "Vous ne pouvez pas vous suivre vous-même.",
+                    }
+                    return render(request, "critics/abonnement.html", context)
+
+                if user_follow:
+                    UserFollows.objects.create(
+                        user=current_user, followed_user=user_follow
+                    )
+            except User.DoesNotExist:
+                form = FollowForm()
+                context = {
+                    "userfollow_form": form,
+                    "error": "L'utilisateur n'existe pas.",
+                }
+                return render(request, "critics/abonnement.html", context)
+            except IntegrityError:
+                form = FollowForm()
+                context = {
+                    "userfollow_form": form,
+                    "error": "L'utilisateur est déjà suivi.",
+                }
+                return render(request, "critics/abonnement.html", context)
+
+    else:
+        form = FollowForm()
+    context = {
+        "userfollow_form": form,
+    }
+
+    return render(request, "critics/abonnement.html", context)
+
+
+@login_required
 def modify_post(request, ticket_id):
-    user = request.user
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket_form = TicketForm(instance=ticket)
     if request.method == "POST":

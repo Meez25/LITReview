@@ -138,7 +138,8 @@ body {
     flex-direction: column;
 }
 
-h1 {
+h1,
+h2 {
     text-align: center;
     grid-column-start: 2;
 }

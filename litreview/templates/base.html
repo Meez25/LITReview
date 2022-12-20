@@ -16,7 +16,7 @@
         <ul>
             <li><a href="{% url 'flux' %}">Flux</a></li>
             <li><a href="{% url 'my_posts' %}">Posts</a></li>
-            <li>Abonnements</li>
+            <li><a href="{% url 'abonnement' %}">Abonnements</a></li>
             <li><a href="{% url 'logout' %}">Se déconnecter ({{ request.user }})</a></li>
         </ul>
         {% endif %}
