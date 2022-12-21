@@ -6,4 +6,33 @@
 
 form {
     text-align: center;
+    display: flex;
+    justify-content: center;
+    margin: 5px;
+}
+
+table {
+    width: 900px;
+    border-collapse: collapse;
+    border-spacing: 0px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+table,
+th,
+td {
+    border: 2px solid;
+}
+
+.user-followed {
+    width: 750px;
+}
+
+.button {
+    width: 150px;
+}
+
+p {
+    margin-left: 5px;
 }

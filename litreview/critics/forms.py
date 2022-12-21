@@ -21,3 +21,8 @@ class FollowForm(forms.Form):
         label="Utilisateur à suivre",
         required=True,
     )
+    follow_form = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+
+
+class UnfollowForm(forms.Form):
+    unfollow_form = forms.BooleanField(widget=forms.HiddenInput, initial=True)

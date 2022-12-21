@@ -7,13 +7,27 @@
 {% block content %}
 <div class="container">
     <h2>Suivre d'autres utilisateurs</h2>
-    {% if error %}
-        <h2>{{ error }}</h2>
+    {% if feedback %}
+        <h3>{{ feedback }}</h3>
     {% endif %}
     <form method="post">
         {{ userfollow_form.as_p }}
         {% csrf_token %}
         <button type="submit">Envoyer</button>
     </form>
+    <h2>Abonnements</h2>
+    <table>
+    {% for user in followed_users %}
+        <tr>
+        <td class="user-followed"><p>{{ user.followed_user }}</p></td>
+        <td class="button"><form class="unfollow-button" method="post">
+            {{ unfollow_form.as_p }}
+            {% csrf_token %}
+            <input type="hidden" name="follow_to_delete" value="{{ user.followed_user }}">
+            <button type="submit" >Désabonner</button>
+        </form></td>
+    </tr>
+    {% endfor %}
+    </table>
 </div>
 {% endblock content %}

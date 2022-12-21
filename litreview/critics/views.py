@@ -1,9 +1,9 @@
-from django.shortcuts import render, redirect, get_object_or_404
+from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from critics.models import Ticket, Review, UserFollows
 from django.contrib.auth.mixins import LoginRequiredMixin
-from .forms import TicketForm, ReviewForm, FollowForm
+from .forms import TicketForm, ReviewForm, FollowForm, UnfollowForm
 from authentication.models import User
 from django.db import IntegrityError
 
@@ -31,7 +31,7 @@ def my_posts(request):
 
 @login_required
 def abonnement(request):
-    if request.method == "POST":
+    if request.method == "POST" and "follow_form" in request.POST:
         form = FollowForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["followed_user"]
@@ -42,33 +42,49 @@ def abonnement(request):
                     form = FollowForm()
                     context = {
                         "userfollow_form": form,
-                        "error": "Vous ne pouvez pas vous suivre vous-même.",
+                        "feedback": "Vous ne pouvez pas vous suivre vous-même.",
                     }
                     return render(request, "critics/abonnement.html", context)
 
-                if user_follow:
+                elif user_follow:
                     UserFollows.objects.create(
                         user=current_user, followed_user=user_follow
                     )
+                    form = FollowForm()
+                    context = {
+                        "userfollow_form": form,
+                        "feedback": "Utilisateur suivi avec succès.",
+                    }
+                    return render(request, "critics/abonnement.html", context)
             except User.DoesNotExist:
                 form = FollowForm()
                 context = {
                     "userfollow_form": form,
-                    "error": "L'utilisateur n'existe pas.",
+                    "feedback": "L'utilisateur n'existe pas.",
                 }
                 return render(request, "critics/abonnement.html", context)
             except IntegrityError:
                 form = FollowForm()
                 context = {
                     "userfollow_form": form,
-                    "error": "L'utilisateur est déjà suivi.",
+                    "feedback": "L'utilisateur est déjà suivi.",
                 }
                 return render(request, "critics/abonnement.html", context)
-
+    elif request.method == "POST" and "unfollow_form" in request.POST:
+        form = UnfollowForm(request.POST)
+        if form.is_valid():
+            print(form.cleaned_data)
+            username = form.cleaned_data["follow_to_delete"]
+            print(username)
     else:
+        followed_users = get_list_or_404(UserFollows.objects.filter(user=request.user))
+        unfollow_form = UnfollowForm()
         form = FollowForm()
+
     context = {
         "userfollow_form": form,
+        "followed_users": followed_users,
+        "unfollow_form": unfollow_form,
     }
 
     return render(request, "critics/abonnement.html", context)
