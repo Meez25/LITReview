@@ -17,17 +17,21 @@
     </form>
     <h2>Abonnements</h2>
     <table>
-    {% for user in followed_users %}
+        {% for user in followed_users %}
         <tr>
-        <td class="user-followed"><p>{{ user.followed_user }}</p></td>
-        <td class="button"><form class="unfollow-button" method="post">
-            {{ unfollow_form.as_p }}
+            <td class="user-followed"><p>{{ user.followed_user }}</p></td>
+            <td class="button">
+                <form class="unfollow-button" method="post">
             {% csrf_token %}
-            <input type="hidden" name="follow_to_delete" value="{{ user.followed_user }}">
-            <button type="submit" >Désabonner</button>
+                {{ unfollow_form.as_table }}
+            <button type="submit" name="user_to_unfollow" value="{{ user.followed_user }}">Désabonner</button>
         </form></td>
     </tr>
     {% endfor %}
+    </table>
+    <h2>Abonnés</h2>
+    <table>
+
     </table>
 </div>
 {% endblock content %}

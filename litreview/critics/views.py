@@ -6,6 +6,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import TicketForm, ReviewForm, FollowForm, UnfollowForm
 from authentication.models import User
 from django.db import IntegrityError
+from django.forms import formset_factory
 
 # Create your views here.
 
@@ -31,7 +32,14 @@ def my_posts(request):
 
 @login_required
 def abonnement(request):
-    if request.method == "POST" and "follow_form" in request.POST:
+    followed_users = UserFollows.objects.filter(
+        user=request.user
+    )  # Get the followed users list
+    unfollow_form = UnfollowForm()  # Create the form to unfollow users
+    form = FollowForm()  # Create the form to follow users
+    if (
+        request.method == "POST" and "follow_form" in request.POST
+    ):  # If the user wants to follow someone
         form = FollowForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data["followed_user"]
@@ -39,45 +47,64 @@ def abonnement(request):
             try:
                 user_follow = User.objects.get(username__exact=username)
                 if user_follow == current_user:
-                    form = FollowForm()
                     context = {
                         "userfollow_form": form,
                         "feedback": "Vous ne pouvez pas vous suivre vous-même.",
+                        "followed_users": followed_users,
                     }
                     return render(request, "critics/abonnement.html", context)
 
-                elif user_follow:
+                else:
                     UserFollows.objects.create(
                         user=current_user, followed_user=user_follow
                     )
+                    followed_users = UserFollows.objects.filter(user=request.user)
                     form = FollowForm()
                     context = {
                         "userfollow_form": form,
                         "feedback": "Utilisateur suivi avec succès.",
+                        "followed_users": followed_users,
                     }
                     return render(request, "critics/abonnement.html", context)
             except User.DoesNotExist:
-                form = FollowForm()
                 context = {
                     "userfollow_form": form,
                     "feedback": "L'utilisateur n'existe pas.",
+                    "followed_users": followed_users,
                 }
                 return render(request, "critics/abonnement.html", context)
             except IntegrityError:
-                form = FollowForm()
                 context = {
                     "userfollow_form": form,
                     "feedback": "L'utilisateur est déjà suivi.",
+                    "followed_users": followed_users,
                 }
                 return render(request, "critics/abonnement.html", context)
-    elif request.method == "POST" and "unfollow_form" in request.POST:
-        form = UnfollowForm(request.POST)
-        if form.is_valid():
-            print(form.cleaned_data)
-            username = form.cleaned_data["follow_to_delete"]
-            print(username)
+    elif request.method == "POST" and "user_to_unfollow" in request.POST:
+        unfollow_form = UnfollowForm(request.POST)
+        if unfollow_form.is_valid():
+            user_to_unfollow = User.objects.get(
+                username=unfollow_form.cleaned_data.get("user_to_unfollow")
+            )
+
+            entry_to_delete = UserFollows.objects.filter(
+                user=request.user, followed_user=user_to_unfollow
+            )
+
+            entry_to_delete.delete()
+
+            followed_users = UserFollows.objects.filter(user=request.user)
+
+            context = {
+                "userfollow_form": form,
+                "followed_users": followed_users,
+                "unfollow_form": unfollow_form,
+            }
+            return render(request, "critics/abonnement.html", context)
+
     else:
-        followed_users = get_list_or_404(UserFollows.objects.filter(user=request.user))
+        followed_users = UserFollows.objects.filter(user=request.user)
+
         unfollow_form = UnfollowForm()
         form = FollowForm()
 

@@ -25,4 +25,4 @@ class FollowForm(forms.Form):
 
 
 class UnfollowForm(forms.Form):
-    unfollow_form = forms.BooleanField(widget=forms.HiddenInput, initial=True)
+    user_to_unfollow = forms.CharField(widget=forms.HiddenInput, required=False)
