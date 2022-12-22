@@ -13,9 +13,11 @@ from django.forms import formset_factory
 
 @login_required
 def flux(request):
-    all_tickets = Ticket.objects.all()
+    my_tickets = Ticket.objects.filter(user=request.user)
+    # review = Review.get_users_viewable_reviews(request.user)
     context = {
-        "tickets": all_tickets,
+        "tickets": my_tickets,
+        # "reviews": review,
     }
     return render(request, "critics/base_flux.html", context)
 
@@ -141,6 +143,13 @@ def modify_post(request, ticket_id):
         "ticket_form": ticket_form,
     }
     return render(request, "critics/modify_post.html", context)
+
+
+@login_required
+def delete_post(ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    ticket.delete()
+    return redirect("my_posts")
 
 
 class TicketCreateView(LoginRequiredMixin, CreateView):
