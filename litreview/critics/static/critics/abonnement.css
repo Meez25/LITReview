@@ -29,6 +29,12 @@ td {
     width: 750px;
 }
 
+.user-following {
+    width: 900px;
+    height: 30px;
+    vertical-align: middle;
+}
+
 .button {
     width: 150px;
 }

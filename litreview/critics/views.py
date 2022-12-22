@@ -37,6 +37,7 @@ def abonnement(request):
     )  # Get the followed users list
     unfollow_form = UnfollowForm()  # Create the form to unfollow users
     form = FollowForm()  # Create the form to follow users
+    following_users = UserFollows.objects.filter(followed_user=request.user)
     if (
         request.method == "POST" and "follow_form" in request.POST
     ):  # If the user wants to follow someone
@@ -59,11 +60,15 @@ def abonnement(request):
                         user=current_user, followed_user=user_follow
                     )
                     followed_users = UserFollows.objects.filter(user=request.user)
+                    following_users = UserFollows.objects.filter(
+                        followed_user=request.user
+                    )
                     form = FollowForm()
                     context = {
                         "userfollow_form": form,
                         "feedback": "Utilisateur suivi avec succès.",
                         "followed_users": followed_users,
+                        "following_users": following_users,
                     }
                     return render(request, "critics/abonnement.html", context)
             except User.DoesNotExist:
@@ -95,10 +100,12 @@ def abonnement(request):
 
             followed_users = UserFollows.objects.filter(user=request.user)
 
+            following_users = UserFollows.objects.filter(followed_user=request.user)
             context = {
                 "userfollow_form": form,
                 "followed_users": followed_users,
                 "unfollow_form": unfollow_form,
+                "following_users": following_users,
             }
             return render(request, "critics/abonnement.html", context)
 
@@ -112,6 +119,7 @@ def abonnement(request):
         "userfollow_form": form,
         "followed_users": followed_users,
         "unfollow_form": unfollow_form,
+        "following_users": following_users,
     }
 
     return render(request, "critics/abonnement.html", context)

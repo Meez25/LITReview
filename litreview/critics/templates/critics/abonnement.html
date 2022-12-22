@@ -31,7 +31,11 @@
     </table>
     <h2>Abonnés</h2>
     <table>
-
+    {% for user in following_users %}
+    <tr>
+        <td class="user-following"><p>{{ user.user }}</p></td>
+    </tr>
+    {% endfor %}
     </table>
 </div>
 {% endblock content %}
