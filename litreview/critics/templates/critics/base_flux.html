@@ -11,9 +11,18 @@
         <a href="/createticket">Demander une critique</a>
         <a href="/createreview">Créer une critique</a>
     </div>
+    {% for post in posts %}
+        {% if post.content_type == 'TICKET' %}
+            {% include 'critics/ticket_snippet.html' %}
+        {% elif post.content_type == 'REVIEW' %}
+            {% include 'critics/review_snippet.html' %}
+        {% endif %}
+    {% endfor %}
     
     {% for ticket in tickets %}
         <div class="ticket">
+            <p>Vous avez demandé une critique</p>
+            <p class="date">{{ ticket.time_created }}</p>
             <h1>{{ ticket.title }}</h1>
             <p>{{ ticket.description }}</p>
             <img src="{{ ticket.image.url}}" alt="Image du ticket">
@@ -22,6 +31,7 @@
     {% for review in reviews %}
         <div class="review">
             <h1>{{ review.headline }}</h1>
+            <h2>{{ review.user }}</h2>
             <p>{{ review.body }}</p>
         </div>
     {% endfor %}

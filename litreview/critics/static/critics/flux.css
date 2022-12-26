@@ -22,7 +22,8 @@
     grid-column: 2;
 }
 
-.ticket {
+.ticket,
+.review {
     display: flex;
     flex-direction: column;
     margin: auto;
@@ -36,4 +37,8 @@
 img {
     width: 300px;
     margin: 10px 0px 0px 0px;
+}
+
+.date {
+    text-align: right;
 }

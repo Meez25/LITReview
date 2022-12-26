@@ -1,3 +1,5 @@
+from itertools import chain
+
 from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
@@ -7,17 +9,24 @@ from .forms import TicketForm, ReviewForm, FollowForm, UnfollowForm
 from authentication.models import User
 from django.db import IntegrityError
 from django.forms import formset_factory
+from django.db.models import Q, CharField, Value
 
 # Create your views here.
 
 
 @login_required
 def flux(request):
-    my_tickets = Ticket.objects.filter(user=request.user)
-    # review = Review.get_users_viewable_reviews(request.user)
+    tickets = get_users_viewable_tickets(request.user)
+    tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
+    review = get_users_viewable_reviews(request.user)
+    review = tickets.annotate(content_type=Value("REVIEW", CharField()))
+
+    posts = sorted(
+        chain(review, tickets), key=lambda post: post.time_created, reverse=True
+    )
+
     context = {
-        "tickets": my_tickets,
-        # "reviews": review,
+        "posts": posts,
     }
     return render(request, "critics/base_flux.html", context)
 
@@ -191,3 +200,39 @@ def create_review(request):
         "review_form": review_form,
     }
     return render(request, "critics/review_form.html", context=context)
+
+
+def get_users_viewable_reviews(user):
+    followed_users = get_followed_users(user)
+    followed_users_id = [followed_user.id for followed_user in followed_users]
+    following_users = get_following_users(user)
+    following_users_id = [following_user.id for following_user in following_users]
+    review = Review.objects.all()
+    review = Review.objects.filter(
+        Q(user=user) | Q(user__id__in=followed_users_id) | Q(ticket__user__id=user.id)
+    )
+    return review
+
+
+def get_users_viewable_tickets(user):
+    followed_users = get_followed_users(user)
+    followed_users_id = [followed_user.id for followed_user in followed_users]
+    following_users = get_following_users(user)
+    following_users_id = [following_user.id for following_user in following_users]
+    tickets = Ticket.objects.all()
+    tickets = Ticket.objects.filter(Q(user=user) | Q(user__id__in=followed_users_id))
+    return tickets
+
+
+def get_following_users(user):
+    following_users = UserFollows.objects.filter(followed_user=user)
+    following_users_id = [following_user.id for following_user in following_users]
+    return User.objects.filter(id__in=following_users_id)
+
+
+def get_followed_users(user):
+    followed_users = UserFollows.objects.filter(user=user)
+    followed_users_id = [
+        followed_user.followed_user.id for followed_user in followed_users
+    ]
+    return User.objects.filter(id__in=followed_users_id)
