@@ -40,10 +40,7 @@ def add_review(request, ticket_id):
             review = review_form.save(commit=False)
             review.ticket = ticket  # Add the ticket to the review object
             review.user = request.user  # Add the user to the review object
-            print(review)
             review.save()
-            print(review)
-            print("success")
             return redirect("flux")
     context = {
         "ticket": ticket,

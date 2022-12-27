@@ -14,6 +14,9 @@
         <p>Ticket - {{ post.ticket.user }}</p>
         <h1>{{ post.ticket.title }}</h1>
         <p>{{ post.ticket.description }}</p>
+        {% if post.ticket.image %}
+        
         <img src="{{ post.ticket.image.url}}" alt="Image du ticket">
+        {% endif %}
     </div>
 </div>
