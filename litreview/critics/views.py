@@ -19,7 +19,7 @@ def flux(request):
     tickets = get_users_viewable_tickets(request.user)
     tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
     review = get_users_viewable_reviews(request.user)
-    review = tickets.annotate(content_type=Value("REVIEW", CharField()))
+    review = review.annotate(content_type=Value("REVIEW", CharField()))
 
     posts = sorted(
         chain(review, tickets), key=lambda post: post.time_created, reverse=True
@@ -220,7 +220,9 @@ def get_users_viewable_tickets(user):
     following_users = get_following_users(user)
     following_users_id = [following_user.id for following_user in following_users]
     tickets = Ticket.objects.all()
-    tickets = Ticket.objects.filter(Q(user=user) | Q(user__id__in=followed_users_id))
+    tickets = Ticket.objects.filter(
+        Q(review__isnull=True), Q(user=user) | Q(user__id__in=followed_users_id)
+    )
     return tickets
 
 

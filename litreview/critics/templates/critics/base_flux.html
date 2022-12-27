@@ -18,23 +18,6 @@
             {% include 'critics/review_snippet.html' %}
         {% endif %}
     {% endfor %}
-    
-    {% for ticket in tickets %}
-        <div class="ticket">
-            <p>Vous avez demandé une critique</p>
-            <p class="date">{{ ticket.time_created }}</p>
-            <h1>{{ ticket.title }}</h1>
-            <p>{{ ticket.description }}</p>
-            <img src="{{ ticket.image.url}}" alt="Image du ticket">
-        </div>
-    {% endfor %}
-    {% for review in reviews %}
-        <div class="review">
-            <h1>{{ review.headline }}</h1>
-            <h2>{{ review.user }}</h2>
-            <p>{{ review.body }}</p>
-        </div>
-    {% endfor %}
 </div>
 
 {% endblock content %}

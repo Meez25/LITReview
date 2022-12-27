@@ -1,2 +1,12 @@
-<h1>Je suis ticket_snippet.html</h1>
-<p>{{ post.title }}</p>
+<div class="ticket">
+    {% if post.user == request.user %}
+    <p>Vous avez demandé une critique</p>
+    {% else %}
+    <p>{{ post.user }} a demandé une critique</p>
+    {% endif %}
+    <p class="date">{{ post.time_created }}</p>
+    <h1>{{ post.title }}</h1>
+    <p>{{ post.description }}</p>
+    <img src="{{ post.image.url}}" alt="Image du ticket">
+    <a href="#">Créer une critique</a>
+</div>
