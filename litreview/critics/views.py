@@ -30,6 +30,26 @@ def flux(request):
     }
     return render(request, "critics/base_flux.html", context)
 
+@login_required
+def add_review(request, ticket_id):
+    ticket = get_object_or_404(Ticket, id=ticket_id)
+    review_form = ReviewForm()
+    if request.method == "POST":
+        review_form = ReviewForm(request.POST)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.ticket = ticket  # Add the ticket to the review object
+            review.user = request.user  # Add the user to the review object
+            print(review)
+            review.save()
+            print(review)
+            print("success")
+            return redirect("flux")
+    context = {
+        "ticket": ticket,
+        "review_form": review_form,
+    }
+    return render(request, "critics/add_review.html", context)
 
 @login_required
 def my_posts(request):

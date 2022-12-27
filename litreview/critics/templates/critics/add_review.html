@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extrahead %}
+<link rel="stylesheet" href='{% static "critics/add_review.css" %}'>
+{% endblock extrahead %}
+{% block content %}
+<form method="post" enctype="multipart/form-data">{% csrf_token %}
+
+
+    {{ review_form.as_p }}
+    <input type="submit" value="Save">
+</form>
+{% endblock content %}
