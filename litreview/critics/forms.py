@@ -14,7 +14,12 @@ class TicketForm(forms.ModelForm):
 class ReviewForm(forms.ModelForm):
     class Meta:
         model = models.Review
-        fields = ["rating", "headline", "body"]
+        fields = ["headline", "rating", "body"]
+        labels = {"headline": "Titre", "rating": "Note", "body": "Commentaire"}
+        widgets = {
+                "rating": forms.widgets.RadioSelect(
+                    choices=[(i, " - " + str(i)) for i in range(6)]),
+                }
 
 
 class FollowForm(forms.Form):

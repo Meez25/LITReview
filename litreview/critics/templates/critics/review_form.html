@@ -1,5 +1,25 @@
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-    {{ ticket_form.as_p }}
-    {{ review_form.as_p }}
-    <input type="submit" value="Save">
-</form>
+{% extends 'base.html' %}
+{% load static %}
+
+
+{% block extrahead %}
+<link rel="stylesheet" href='{% static "critics/review_form.css" %}'>
+    {% endblock extrahead %}
+    {% block content %}
+<div class="container">
+    <h2>Créer une critique</h2>
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <div class="ticket">
+            <p>Livre / Article</p>
+            {{ ticket_form.as_p }}
+        </div>
+        <div class="review">
+            <p>Critique</p>
+            {{ review_form.as_p }}
+            <div class="button">
+                <button type="submit" value="Save">Envoyer</button>
+            </div>
+        </div>
+    </form>
+</div>
+{% endblock content %}

@@ -172,7 +172,7 @@ def modify_post(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket_form = TicketForm(instance=ticket)
     if request.method == "POST":
-        ticket_form = TicketForm(request.POST, instance=ticket)
+        ticket_form = TicketForm(request.POST, request.FILES, instance=ticket)
         if ticket_form.is_valid():
             ticket = ticket_form.save(commit=False)
             ticket.user = request.user  # Add the user to the ticket object
@@ -188,6 +188,7 @@ def modify_post(request, ticket_id):
 @login_required
 def modify_review(request, review_id):
     review = get_object_or_404(Review, id=review_id)
+    ticket = review.ticket
     review_form = ReviewForm(instance=review)
     if request.method == "POST":
         review_form = ReviewForm(request.POST, instance=review)
@@ -199,6 +200,7 @@ def modify_review(request, review_id):
     context = {
         "review": review,
         "review_form": review_form,
+        "ticket": ticket,
     }
     return render(request, "critics/modify_review.html", context)
 

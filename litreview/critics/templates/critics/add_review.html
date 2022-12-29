@@ -6,10 +6,29 @@
 <link rel="stylesheet" href='{% static "critics/add_review.css" %}'>
 {% endblock extrahead %}
 {% block content %}
-<form method="post" enctype="multipart/form-data">{% csrf_token %}
-
-
-    {{ review_form.as_p }}
-    <input type="submit" value="Save">
-</form>
+<div class="container">
+    <form method="post" enctype="multipart/form-data">{% csrf_token %}
+        <h2>Vous êtes en train de poster en réponse à</h2>
+        <div class="ticket">
+            {% if ticket.user == request.user %}
+            <p class="titre">Vous avez demandé une critique</p>
+            {% else %}
+            <p class="titre">{{ ticket.user }} a demandé une critique</p>
+            {% endif %}
+            <h2>{{ ticket.title }}</h2>
+            <p class="date">{{ ticket.time_created }}</p>
+            <p>{{ ticket.description }}</p>
+            {% if ticket.image %}
+            <img src="{{ ticket.image.url}}" alt="Image du ticket">
+            {% endif %}
+        </div>
+        <div class="review">
+            <h2>Critique</h2>
+            {{ review_form.as_p }}
+            <div class="button">
+                <button type="submit" value="Save">Envoyer</button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock content %}

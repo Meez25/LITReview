@@ -12,6 +12,9 @@ form {
     margin: auto;
 }
 
+textarea {
+    resize: none;
+}
 p {
     margin: 10px;
     display: flex;

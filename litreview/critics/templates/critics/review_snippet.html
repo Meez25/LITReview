@@ -5,13 +5,13 @@
     {% else %}
     <p class="titre">{{ post.user }} a publié une critique</p>
     {% endif %}
-    <p class="date">{{ post.time_created }}</p>
+    <p class="date">{{ post.time_created|date:"H:i, d F Y"}}</p>
     <h1>{{ post.headline }} - {{ post.rating|stars|safe }}
     </h1>
     <p>{{ post.body }}</p>
     <div class="sub-ticket">
         <p class="titre">Ticket - {{ post.ticket.user }}</p>
-        <p class="date">{{ post.ticket.time_created }}</p>
+        <p class="date">{{ post.ticket.time_created|date:"H:i, d F Y" }}</p>
         <h1>{{ post.ticket.title }}</h1>
         <p>{{ post.ticket.description }}</p>
         {% if post.ticket.image %}

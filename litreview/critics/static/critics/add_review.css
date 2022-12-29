@@ -1,0 +1,72 @@
+
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 50px;
+}
+
+form {
+    text-align: center;
+    border: 3px solid black;
+    width: 1200px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+}
+
+p {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+textarea {
+    resize: none;
+}
+p label {
+    margin-bottom: 5px;
+}
+
+.ticket {
+    border: 3px solid black;
+    width: 900px;
+    margin: auto;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 50px;
+}
+
+.ticket a {
+    text-align: right;
+    margin: 20px;
+}
+.review {
+    border-top: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    margin-top: -3px;
+}
+#id_rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly ;
+}
+.button {
+    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+h2 {
+    margin: 20px 0px 20px 10px;
+    text-align: left;
+}
+.date {
+    text-align: right;
+}
+img {
+    width: 300px;
+    margin: 10px 10px 10px 10px;
+}

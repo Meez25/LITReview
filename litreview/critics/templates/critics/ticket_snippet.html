@@ -6,7 +6,7 @@
     <p class="titre">{{ post.user }} a demandé une critique</p>
     {% endif %}
     <h1>{{ post.title }}</h1>
-    <p class="date">{{ post.time_created }}</p>
+    <p class="date">{{ post.time_created|date:"H:i, d F Y" }}</p>
     <p>{{ post.description }}</p>
     {% if post.image %}
     <img src="{{ post.image.url}}" alt="Image du ticket">
