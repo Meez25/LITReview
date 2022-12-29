@@ -1,17 +1,17 @@
 {% load myfilters %}
 <div class="review">
     {% if post.user == request.user %}
-    <p>Vous avez publié une critique</p>
+    <p class="titre">Vous avez publié une critique</p>
     {% else %}
-    <p>{{ post.user }} a publié une critique</p>
+    <p class="titre">{{ post.user }} a publié une critique</p>
     {% endif %}
     <p class="date">{{ post.time_created }}</p>
     <h1>{{ post.headline }} - {{ post.rating|stars|safe }}
     </h1>
     <p>{{ post.body }}</p>
     <div class="sub-ticket">
+        <p class="titre">Ticket - {{ post.ticket.user }}</p>
         <p class="date">{{ post.ticket.time_created }}</p>
-        <p>Ticket - {{ post.ticket.user }}</p>
         <h1>{{ post.ticket.title }}</h1>
         <p>{{ post.ticket.description }}</p>
         {% if post.ticket.image %}

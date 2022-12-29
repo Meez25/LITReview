@@ -6,6 +6,7 @@
 
 .button_pair {
     margin: auto;
+    margin-top: 50px;
     justify-content: center;
     display: grid;
     grid-template-columns: repeat(2, 300px);
@@ -22,6 +23,14 @@
     grid-column: 2;
 }
 
+.container:last-child{
+    margin-bottom: 50px;
+}
+
+.titre {
+    margin-top: 10px;
+}
+
 .ticket,
 .review {
     display: flex;
@@ -32,6 +41,11 @@
     justify-content: center;
     outline: 2px black solid;
     width: 900px;
+}
+
+.create-link {
+    text-align: right;
+    margin: 40px;
 }
 
 img {

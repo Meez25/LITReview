@@ -3,21 +3,16 @@
 
 
 {% block extrahead %}
-    <link rel="stylesheet" href='{% static "critics/my_posts.css" %}'>
+    <link rel="stylesheet" href='{% static "critics/flux.css" %}'>
 {% endblock extrahead %}
 {% block content %}
 <div class="container">
-    {% for ticket in tickets %}
-        <div class="ticket">
-            <p>Vous avez publié un ticket</p>
-            <p class="date">{{ ticket.time_created}}</p>
-            <h2>{{ ticket.title }}</h2>
-            <p class="description">{{ ticket.description }}</p>
-            <img src="{{ ticket.image.url }}" alt="Image du ticket">
-            <a href="{% url 'modify_post' ticket.id %}">Modifier</a>
-            <a href="{% url 'delete_post' ticket.id %}">Supprimer</a>
-        </div>
+    {% for post in posts %}
+        {% if post.content_type == 'TICKET' %}
+            {% include 'critics/ticket_snippet_modify.html' %}
+        {% elif post.content_type == 'REVIEW' %}
+            {% include 'critics/review_snippet_modify.html' %}
+        {% endif %}
     {% endfor %}
 </div>
-
 {% endblock content %}

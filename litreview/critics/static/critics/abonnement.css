@@ -4,6 +4,10 @@
     flex-direction: column;
 }
 
+.container:last-child{
+    margin-bottom: 50px;
+}
+
 form {
     text-align: center;
     display: flex;
@@ -15,6 +19,7 @@ table {
     width: 900px;
     border-collapse: collapse;
     border-spacing: 0px;
+    margin: 50px;
     margin-left: auto;
     margin-right: auto;
 }

@@ -15,9 +15,10 @@
                 </div>
             {% endfor %}
             {% csrf_token %}
-            <button type="submit" name="register">S’inscrire</button>
-            
+            <div class="button"> 
+                <a href="/">Retourner</a>
+                <button type="submit" name="register" value="register">S’inscrire</button>
+            </div>
         </form>
-        <a href="/">Retour</a>
     </div>
 {% endblock content %}

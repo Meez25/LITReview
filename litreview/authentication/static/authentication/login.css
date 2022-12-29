@@ -3,3 +3,24 @@
     justify-content: space-around;
     margin: 50px 0px 50px 0px;
 }
+
+.connect button {
+    width: 130px;
+    float: right;
+    margin: 10px;
+}
+
+.register {
+    display: flex;
+    flex-direction:column;
+}
+.register a {
+    margin-top: 30px;
+    text-align: center;
+} 
+
+
+p {
+    margin: 10px;
+}
+

@@ -3,8 +3,22 @@
     justify-content: center;
     flex-direction: column;
     text-align: center;
+    margin: 50px;
 }
 
 form {
     text-align: center;
+    width: 700px;
+    margin: auto;
+}
+
+p {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+p label {
+    margin-bottom: 5px;
 }

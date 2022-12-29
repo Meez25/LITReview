@@ -8,7 +8,6 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 from .forms import TicketForm, ReviewForm, FollowForm, UnfollowForm
 from authentication.models import User
 from django.db import IntegrityError
-from django.forms import formset_factory
 from django.db.models import Q, CharField, Value
 
 # Create your views here.
@@ -60,8 +59,15 @@ def add_review(request, ticket_id):
 def my_posts(request):
     user = request.user
     all_tickets = Ticket.objects.filter(user__exact=user).order_by("-time_created")
+    my_review = Review.objects.filter(user__exact=user).order_by("-time_created")
+    all_tickets = all_tickets.annotate(content_type=Value("TICKET", CharField()))
+    my_review = my_review.annotate(content_type=Value("REVIEW", CharField()))
+    posts = sorted(
+        chain(my_review, all_tickets), key=lambda post: post.time_created, reverse=True
+    )
+
     context = {
-        "tickets": all_tickets,
+        "posts": posts,
     }
     return render(request, "critics/my_posts.html", context)
 
@@ -180,21 +186,41 @@ def modify_post(request, ticket_id):
 
 
 @login_required
-def delete_post(ticket_id):
+def modify_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    review_form = ReviewForm(instance=review)
+    if request.method == "POST":
+        review_form = ReviewForm(request.POST, instance=review)
+        if review_form.is_valid():
+            review = review_form.save(commit=False)
+            review.user = request.user  # Add the user to the review object
+            review.save()
+            return redirect("my_posts")
+    context = {
+        "review": review,
+        "review_form": review_form,
+    }
+    return render(request, "critics/modify_review.html", context)
+
+
+
+@login_required
+def delete_post(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket.delete()
     return redirect("my_posts")
 
+@login_required
+def delete_review(request, review_id):
+    review = get_object_or_404(Review, id=review_id)
+    review.delete()
+    return redirect("my_posts")
+
 
 class TicketCreateView(LoginRequiredMixin, CreateView):
-    form = TicketForm()
+    form_class = TicketForm
     model = Ticket
-    fields = ["title", "description", "image"]
     success_url = "/flux/"
-
-    """def post(self, request, *args, **kwargs):
-        self.object = None
-        return super().post(request, *args, **kwargs)"""
 
     def form_valid(self, form):
         obj = form.save(commit=False)
@@ -245,6 +271,7 @@ def get_users_viewable_tickets(user):
     following_users = get_following_users(user)
     following_users_id = [following_user.id for following_user in following_users]
     tickets = Ticket.objects.filter(
+        ~Q(review__user__id=user.id),
         Q(review__isnull=True) | ~Q(review__user__id__in=followed_users_id),
         Q(user=user) | Q(user__id__in=followed_users_id)
     )

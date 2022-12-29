@@ -1,17 +1,17 @@
 {% load static %}
 <div class="ticket">
     {% if post.user == request.user %}
-    <p>Vous avez demandé une critique</p>
+    <p class="titre">Vous avez demandé une critique</p>
     {% else %}
-    <p>{{ post.user }} a demandé une critique</p>
+    <p class="titre">{{ post.user }} a demandé une critique</p>
     {% endif %}
-    <p class="date">{{ post.time_created }}</p>
     <h1>{{ post.title }}</h1>
+    <p class="date">{{ post.time_created }}</p>
     <p>{{ post.description }}</p>
     {% if post.image %}
     <img src="{{ post.image.url}}" alt="Image du ticket">
     {% endif %}
     {% if not post.review_set.exists %}
-    <a href="{% url 'add_review' post.id %}">Créer une critique</a>
+    <a class="create-link" href="{% url 'add_review' post.id %}">Créer une critique</a>
     {% endif %}
 </div>
