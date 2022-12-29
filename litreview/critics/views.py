@@ -17,6 +17,12 @@ from django.db.models import Q, CharField, Value
 @login_required
 def flux(request):
     tickets = get_users_viewable_tickets(request.user)
+    all_reviews = Review.objects.all()
+    for review in all_reviews:
+        for ticket in tickets:
+            if review.ticket == ticket:
+                ticket.has_a_reply = True
+                ticket.toto = "salut"
     tickets = tickets.annotate(content_type=Value("TICKET", CharField()))
     review = get_users_viewable_reviews(request.user)
     review = review.annotate(content_type=Value("REVIEW", CharField()))
@@ -29,6 +35,7 @@ def flux(request):
         "posts": posts,
     }
     return render(request, "critics/base_flux.html", context)
+
 
 @login_required
 def add_review(request, ticket_id):
@@ -47,6 +54,7 @@ def add_review(request, ticket_id):
         "review_form": review_form,
     }
     return render(request, "critics/add_review.html", context)
+
 
 @login_required
 def my_posts(request):
@@ -236,9 +244,9 @@ def get_users_viewable_tickets(user):
     followed_users_id = [followed_user.id for followed_user in followed_users]
     following_users = get_following_users(user)
     following_users_id = [following_user.id for following_user in following_users]
-    tickets = Ticket.objects.all()
     tickets = Ticket.objects.filter(
-        Q(review__isnull=True), Q(user=user) | Q(user__id__in=followed_users_id)
+        Q(review__isnull=True) | ~Q(review__user__id__in=followed_users_id),
+        Q(user=user) | Q(user__id__in=followed_users_id)
     )
     return tickets
 

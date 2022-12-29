@@ -11,5 +11,7 @@
     {% if post.image %}
     <img src="{{ post.image.url}}" alt="Image du ticket">
     {% endif %}
+    {% if not post.review_set.exists %}
     <a href="{% url 'add_review' post.id %}">Créer une critique</a>
+    {% endif %}
 </div>
