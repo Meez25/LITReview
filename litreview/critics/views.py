@@ -275,6 +275,7 @@ def get_users_viewable_tickets(user):
     tickets = Ticket.objects.filter(
         ~Q(review__user__id=user.id),
         Q(review__isnull=True) | ~Q(review__user__id__in=followed_users_id),
+        Q(review__isnull=True),
         Q(user=user) | Q(user__id__in=followed_users_id)
     )
     return tickets
