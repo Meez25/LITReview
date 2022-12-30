@@ -164,3 +164,17 @@ header ul {
 header ul li {
     margin: 10px;
 }
+
+a {
+    text-decoration: none;
+    color: black;
+    background-color: grey;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+button {
+    border: none;
+    background-color: grey;
+}
+

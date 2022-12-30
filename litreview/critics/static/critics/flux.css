@@ -23,6 +23,10 @@
     grid-column: 2;
 }
 
+.button_pair a{
+    margin: 10px;
+}
+
 .container:last-child{
     margin-bottom: 50px;
 }
@@ -70,4 +74,15 @@ img {
 h1 {
     text-align: left;
     margin-bottom: 5px;
+}
+
+.review a{
+    text-align: center;
+    width: 150px;
+    margin: 5px;
+}
+.ticket a{
+    text-align: center;
+    width: 150px;
+    margin: 5px;
 }
