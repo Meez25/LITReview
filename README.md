@@ -30,10 +30,10 @@ python manage.py runserver
 ```
 
 A few user are already created :
-admin with password toto
-user1 with password toto
-user2 with password toto
-user3 with password toto
+- admin with password toto
+- user1 with password toto
+- user2 with password toto
+- user3 with password toto
 
 There are no relation between them yet. Feel free to create them.
 
