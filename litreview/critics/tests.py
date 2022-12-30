@@ -71,7 +71,7 @@ class TicketDisplayedTests(TestCase):
         self.userFollow2.save()
         self.review = Review(ticket=self.ticket1,
                              rating=5,
-                         user=self.user2,
+                             user=self.user2,
                              headline="headline",
                              body="body",
                              time_created=timezone.now())
