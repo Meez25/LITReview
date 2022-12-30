@@ -4,10 +4,12 @@
 ``` bash
 git clone https://github.com/Meez25/LITReview
 ```
+Then go in the LITReview folder
 
 # Create the virtual environement
 
 ``` bash
+python3 -m venv env
 python3 env/bin/activate
 ```
 
@@ -19,7 +21,7 @@ To download all the libraries, you can do this command
 pip install -r requirements.txt
 ```
 
-This will install all the dependancies necessary to run the WebServer
+This will install all the dependancies necessary to run the Django Server
 
 Then : 
 ``` bash
