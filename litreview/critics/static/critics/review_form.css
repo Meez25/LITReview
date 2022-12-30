@@ -1,0 +1,51 @@
+.container {
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    margin: 50px;
+}
+
+form {
+    text-align: center;
+    width: 700px;
+    margin: auto;
+}
+
+p {
+    margin: 10px;
+    display: flex;
+    flex-direction: column;
+    text-align: left;
+}
+
+textarea {
+    resize: none;
+}
+p label {
+    margin-bottom: 5px;
+}
+
+.ticket {
+    border: 3px solid black;
+}
+
+.review {
+    border: 3px solid black;
+    display: flex;
+    flex-direction: column;
+    margin-top: -3px;
+}
+#id_rating {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-evenly ;
+}
+.button {
+    margin: 20px;
+    display: flex;
+    justify-content: flex-end;
+}
+h2 {
+    margin-bottom: 20px;
+}

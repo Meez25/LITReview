@@ -1,0 +1,23 @@
+{% load myfilters %}
+<div class="review">
+    {% if post.user == request.user %}
+    <p>Vous avez publié une critique</p>
+    {% else %}
+    <p>{{ post.user }} a publié une critique</p>
+    {% endif %}
+    <p class="date">{{ post.time_created|date:"H:i, d F Y" }}</p>
+    <h1>{{ post.headline }} - {{ post.rating|stars|safe }}</h1>
+    <p>{{ post.body }}</p>
+    <div class="sub-ticket">
+        <p class="date">{{ post.ticket.time_created|date:"H:i, d F Y" }}</p>
+        <p>Ticket - {{ post.ticket.user }}</p>
+        <h1>{{ post.ticket.title }}</h1>
+        <p>{{ post.ticket.description }}</p>
+        {% if post.ticket.image %}
+        
+        <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
+        {% endif %}
+    </div>
+    <a href="{% url 'modify_review' post.id %}">Modifier</a>
+    <a href="{% url 'delete_review' post.id %}">Supprimer</a>
+</div>
