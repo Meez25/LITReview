@@ -8,7 +8,7 @@ class TicketForm(forms.ModelForm):
     class Meta:
         model = models.Ticket
         fields = ("title", "description", "image")
-        labels = {'title': "Titre"}
+        labels = {"title": "Titre"}
 
 
 class ReviewForm(forms.ModelForm):
@@ -17,9 +17,10 @@ class ReviewForm(forms.ModelForm):
         fields = ["headline", "rating", "body"]
         labels = {"headline": "Titre", "rating": "Note", "body": "Commentaire"}
         widgets = {
-                "rating": forms.widgets.RadioSelect(
-                    choices=[(i, " - " + str(i)) for i in range(6)]),
-                }
+            "rating": forms.widgets.RadioSelect(
+                choices=[(i, " - " + str(i)) for i in range(6)]
+            ),
+        }
 
 
 class FollowForm(forms.Form):

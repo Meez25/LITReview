@@ -205,12 +205,12 @@ def modify_review(request, review_id):
     return render(request, "critics/modify_review.html", context)
 
 
-
 @login_required
 def delete_post(request, ticket_id):
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket.delete()
     return redirect("my_posts")
+
 
 @login_required
 def delete_review(request, review_id):
@@ -276,7 +276,7 @@ def get_users_viewable_tickets(user):
         ~Q(review__user__id=user.id),
         Q(review__isnull=True) | ~Q(review__user__id__in=followed_users_id),
         Q(review__isnull=True),
-        Q(user=user) | Q(user__id__in=followed_users_id)
+        Q(user=user) | Q(user__id__in=followed_users_id),
     )
     return tickets
 
