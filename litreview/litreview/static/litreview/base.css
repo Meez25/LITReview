@@ -136,7 +136,6 @@ body {
     display: flex;
     justify-content: center;
     flex-direction: column;
-    border: 3px solid black;
 }
 
 h1,
@@ -178,3 +177,36 @@ button {
     background-color: grey;
 }
 
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* style de l'en-tête */
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header ul li {
+  margin: 0 10px;
+}
+
+header ul li a {
+  color: white;
+  text-decoration: none;
+}

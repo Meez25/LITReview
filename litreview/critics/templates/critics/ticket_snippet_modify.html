@@ -11,6 +11,8 @@
     {% if post.image %}
     <img src="{{ post.image.url}}" alt="Image du ticket">
         {% endif %}
-    <a href="{% url 'modify_post' post.id %}">Modifier</a>
-    <a href="{% url 'delete_post' post.id %}">Supprimer</a>
+        <div class="buttons">
+            <a href="{% url 'modify_post' post.id %}">Modifier</a>
+            <a href="{% url 'delete_post' post.id %}">Supprimer</a>
+        </div>
 </div>

@@ -18,6 +18,8 @@
         <img src="{{ post.ticket.image.url }}" alt="Image du ticket">
         {% endif %}
     </div>
-    <a href="{% url 'modify_review' post.id %}">Modifier</a>
-    <a href="{% url 'delete_review' post.id %}">Supprimer</a>
+    <div class="buttons">
+        <a href="{% url 'modify_review' post.id %}">Modifier</a>
+        <a href="{% url 'delete_review' post.id %}">Supprimer</a>
+    </div>
 </div>

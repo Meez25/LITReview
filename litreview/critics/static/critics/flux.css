@@ -1,88 +1,112 @@
+/* réinitialise les styles par défaut */
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+/* style de l'en-tête */
+header {
+  background-color: #333;
+  color: white;
+  padding: 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 32px;
+}
+
+header ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+header ul li {
+  margin: 0 10px;
+}
+
+header ul li a {
+  color: white;
+  text-decoration: none;
+}
+
+/* style du conteneur principal */
 .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 20px;
 }
 
+/* style du bouton d'inscription */
 .button_pair {
-    margin: auto;
-    margin-top: 50px;
-    justify-content: center;
-    display: grid;
-    grid-template-columns: repeat(2, 300px);
-    width: 600px;
+  display: flex;
+  justify-content: space-evenly;
+  width: 60%;
+  margin-bottom: 20px;
 }
 
-.button_pair a:nth-child(1) {
-    text-align: center;
-    grid-column: 1;
+.button_pair a {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
 }
 
-.button_pair a:nth-child(2) {
-    text-align: center;
-    grid-column: 2;
-}
-
-.button_pair a{
-    margin: 10px;
-}
-
-.container:last-child{
-    margin-bottom: 50px;
+/* style des div ticket et review */
+.ticket,
+.review {
+  width: 60%;
+  background-color: #f5f5f5;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 20px;
 }
 
 .titre {
-    margin-top: 10px;
-}
-
-.ticket,
-.review {
-    display: flex;
-    flex-direction: column;
-    margin: auto;
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    outline: 2px black solid;
-    width: 900px;
-}
-
-.create-link {
-    text-align: right;
-    margin: 40px;
-}
-
-img {
-    width: 300px;
-    margin: 10px 10px 10px 10px;
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 10px;
 }
 
 .date {
-    text-align: right;
+  font-size: 14px;
+  color: #999;
+  margin-bottom: 20px;
 }
 
+.ticket img,
+.review img {
+  max-width: 100%;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.create-link {
+  display: block;
+  width: 150px;
+  margin: 0 auto;
+  background-color: #333;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+/* style de la div sous-ticket */
 .sub-ticket {
-    display: flex;
-    flex-direction: column;
-    margin: 10px;
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-    outline: 2px black solid;
+  margin-top: 20px;
+  padding: 20px;
+  background-color: #Bbc3c7;
+  border-radius: 5px;
 }
 
-h1 {
-    text-align: left;
-    margin-bottom: 5px;
-}
-
-.review a{
-    text-align: center;
-    width: 150px;
-    margin: 5px;
-}
-.ticket a{
-    text-align: center;
-    width: 150px;
-    margin: 5px;
+.sub-ticket .date {
+    color: black;
 }

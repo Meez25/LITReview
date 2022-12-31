@@ -1,26 +1,92 @@
+/* réinitialise les styles par défaut */
+html, body {
+    margin: 0;
+    padding: 0;
+}
+
+/* style de l'en-tête */
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+header h1 {
+    margin: 0;
+    font-size: 32px;
+}
+
+/* style de la section d'inscription et de connexion */
 .landing {
     display: flex;
-    justify-content: space-around;
-    margin: 50px 0px 50px 0px;
+    justify-content: space-evenly;
+    align-items: center;
+    padding: 20px;
 }
 
-.connect button {
-    width: 130px;
-    float: right;
-    margin: 10px;
-}
-
+/* style de la section d'inscription */
 .register {
-    display: flex;
-    flex-direction:column;
-}
-.register a {
-    margin-top: 30px;
+    width: 45%;
     text-align: center;
-} 
+}
 
+.register h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
 
-p {
-    margin: 10px;
+.register a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+}
+
+/* style de la section de connexion */
+.connect {
+    width: 45%;
+    text-align: center;
+}
+
+.connect h2 {
+    font-size: 24px;
+    margin-bottom: 10px;
+}
+
+.connect form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.connect form p {
+    margin: 10px 0;
+}
+
+.connect form label {
+    display: block;
+    font-size: 16px;
+    margin-bottom: 5px;
+}
+
+.connect form input[type="text"],
+.connect form input[type="password"] {
+    width: 60%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+.connect form button[type="submit"] {
+    width: 60%;
+    padding: 10px 20px;
+    background-color: #333;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
 }
 

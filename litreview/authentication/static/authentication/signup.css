@@ -22,4 +22,18 @@ form {
 .button {
     float:right;
     margin-right: 20px;
+    text-decoration: none;
+    color: black;
+    padding: 10px;
+    border-radius: 10px;
+}
+
+.button a {
+    height: 40px;
+}
+
+.button button{
+    padding: 10px;
+    border-radius: 10px;
+    height: 40px;
 }
