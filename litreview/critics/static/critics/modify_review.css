@@ -1,87 +1,69 @@
-
 .container {
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-    text-align: center;
-    margin: auto;
-    width: 1100px;
-    border: 3px solid black;
+  width: 800px;
+  margin: 2em auto;
+  padding: 1em;
+  background-color: #f8f8f8;
+  border-radius: 8px;
 }
 
-form {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    margin: auto;
+form p {
+  margin: 0.5em 0;
 }
 
-.container > h2 {
-    margin: 30px;
+form label {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 0.5em;
 }
 
-p {
-    margin: 10px;
+form input[type="text"],
+form textarea {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  padding: 0.5em;
+  font-size: 1em;
+}
+
+form .ticket {
+  margin-bottom: 2em;
+}
+
+form .ticket .ticket-preview {
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  margin-bottom: 1em;
+  padding: 1em;
+}
+
+form .ticket .ticket-preview .titre {
+  font-size: 1.2em;
+  font-weight: bold;
+}
+
+#id_rating {
     display: flex;
-    flex-direction: column;
-    text-align: left;
+    justify-content: space-evenly;
+
+}
+form button[type="submit"] {
+  background-color: #333;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.5em 1em;
+  font-size: 1em;
+  cursor: pointer;
+}
+
+.ticket {
+    background-color: lightgrey;
+    border-radius: 4px;
+    padding: 5px;
+    margin: 5px;
 }
 
 textarea {
     resize: none;
-}
-p label {
-    margin-bottom: 5px;
-}
-
-.ticket {
-    border: 3px solid black;
-    width: 1000px;
-    display: flex;
-    justify-content: center;
-    flex-direction: column;
-}
-
-.review {
-    border: 3px solid black;
-    display: flex;
-    flex-direction: column;
-    margin-top: -3px;
-    margin-bottom: 40px;
-}
-.review h2 {
-    text-align: left;
-    margin: 10px;
-}
-#id_rating {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-evenly ;
-}
-.button {
-    margin: 20px;
-    display: flex;
-    justify-content: flex-end;
-}
-.ticket h2 {
-    margin-bottom: 20px;
-    margin-left: 10px;
-    text-align: left;
-}
-.date {
-    text-align: right;
-}
-
-.ticket-preview {
-    border: 3px solid black;
-    width: 700px;
-    margin: auto;
-    margin-bottom: 40px;
-    display: flex;
-    flex-direction: column;
-}
-.ticket-preview img {
-    width: 300px;
-    margin: 10px;
 }

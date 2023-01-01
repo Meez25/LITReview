@@ -1,10 +1,8 @@
-/* réinitialise les styles par défaut */
 html, body {
     margin: 0;
     padding: 0;
 }
 
-/* style de l'en-tête */
 header {
     background-color: #333;
     color: white;
@@ -17,7 +15,6 @@ header h1 {
     font-size: 32px;
 }
 
-/* style de la section d'inscription et de connexion */
 .landing {
     display: flex;
     justify-content: space-evenly;
@@ -25,7 +22,6 @@ header h1 {
     padding: 20px;
 }
 
-/* style de la section d'inscription */
 .register {
     width: 45%;
     text-align: center;
@@ -45,7 +41,6 @@ header h1 {
     border-radius: 5px;
 }
 
-/* style de la section de connexion */
 .connect {
     width: 45%;
     text-align: center;
@@ -81,7 +76,7 @@ header h1 {
 }
 
 .connect form button[type="submit"] {
-    width: 60%;
+    width: 30%;
     padding: 10px 20px;
     background-color: #333;
     color: white;

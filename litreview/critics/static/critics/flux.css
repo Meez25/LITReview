@@ -1,10 +1,8 @@
-/* réinitialise les styles par défaut */
 html, body {
   margin: 0;
   padding: 0;
 }
 
-/* style de l'en-tête */
 header {
   background-color: #333;
   color: white;
@@ -33,7 +31,6 @@ header ul li a {
   text-decoration: none;
 }
 
-/* style du conteneur principal */
 .container {
   display: flex;
   flex-direction: column;
@@ -41,7 +38,6 @@ header ul li a {
   padding: 20px;
 }
 
-/* style du bouton d'inscription */
 .button_pair {
   display: flex;
   justify-content: space-evenly;
@@ -58,7 +54,6 @@ header ul li a {
   border-radius: 5px;
 }
 
-/* style des div ticket et review */
 .ticket,
 .review {
   width: 60%;
@@ -99,11 +94,10 @@ header ul li a {
   text-align: center;
 }
 
-/* style de la div sous-ticket */
 .sub-ticket {
   margin-top: 20px;
   padding: 20px;
-  background-color: #Bbc3c7;
+  background-color: lightgrey;
   border-radius: 5px;
 }
 
