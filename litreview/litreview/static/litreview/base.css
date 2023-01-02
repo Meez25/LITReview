@@ -1,7 +1,7 @@
 /* http://meyerweb.com/eric/tools/css/reset/ 
-   v2.0 | 20110126
-   License: none (public domain)
-*/
+v2.0 | 20110126
+License: none (public domain)
+ */
 
 html,
 body,
@@ -145,28 +145,7 @@ h3 {
     grid-column-start: 2;
 }
 
-header {
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-    column-gap: 5px;
-    justify-items: center;
-    align-items: center;
-    height: 100px;
-    border-bottom: 3px solid black;
-}
-
-header ul {
-    grid-column: 3;
-    display: flex;
-}
-
-header ul li {
-    margin: 10px;
-}
-
 a {
-    text-decoration: none;
-    color: black;
     background-color: grey;
     padding: 10px;
     border-radius: 10px;
@@ -178,35 +157,99 @@ button {
 }
 
 html, body {
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
 }
+
 
 /* style de l'en-tête */
 header {
-  background-color: #333;
-  color: white;
-  padding: 20px;
-  text-align: center;
+    min-height: 100px;
+    background-color: #333;
+    color: white;
+    text-align: center;
+    align-items: center;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    column-gap: 5px;
+    justify-items: center;
+    align-items: center;
+    border-bottom: 3px solid black;
 }
 
+
+
 header h1 {
-  margin: 0;
-  font-size: 32px;
+    margin: 0;
+    font-size: 32px;
 }
 
 header ul {
-  display: flex;
-  list-style: none;
-  margin: 0;
-  padding: 0;
+    margin: 0;
+    padding: 0;
+    grid-column: 3;
+    display: flex;
+    height: 70%;
 }
 
 header ul li {
-  margin: 0 10px;
+    display: flex;
+    transition: transform 0.2s;
+    align-items: center;
+    text-align: center;
+    margin-right: 10px;
 }
 
 header ul li a {
-  color: white;
-  text-decoration: none;
+    color: white;
+    text-decoration: none;
 }
+
+header ul li:hover{
+    transform: scale(1.1);
+}
+
+form button[type="submit"]:hover {
+    background-color: lightgrey;
+    color: black;
+}
+
+.buttons a:hover{
+    background-color: lightgrey;
+    color: black;
+}
+
+@media screen and (max-width: 1500px) {
+    header {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    header ul {
+        grid-column: 2;
+    }
+
+    header h1 {
+        grid-column: 1;
+    }
+}
+
+@media screen and (max-width: 700px){
+    header ul li a{
+        font-size: 10px;
+    }
+
+    header h1 {
+        font-size: 16px;
+    }
+}
+@media screen and (max-width: 500px){
+    header ul li a{
+        font-size: 6px;
+    }
+
+    header h1 {
+        font-size: 10px;
+    }
+}
+
+

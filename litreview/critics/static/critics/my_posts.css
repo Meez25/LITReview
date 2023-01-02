@@ -55,6 +55,17 @@
   margin-top: 20px;
 }
 
+.buttons a{
+  margin: 2px;
+}
+
 p {
   margin-bottom: 5px;
+}
+
+
+@media screen and (max-width: 1000px){
+  .review, .ticket {
+    width: 90%
+  }
 }

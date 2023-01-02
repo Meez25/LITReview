@@ -1,5 +1,5 @@
 .container {
-    width: 1200px;
+    width: 70%;
     margin: 2em auto;
     padding: 1em;
     background-color: #f8f8f8;
@@ -44,4 +44,14 @@ form button[type="submit"] {
     padding: 0.5em 1em;
     font-size: 1em;
     cursor: pointer;
+}
+
+form button[type="submit"]:hover{
+    background-color: lightgrey;
+    color: black;
+}
+@media screen and (max-width: 1000px){
+  .container{
+    width: 90%;
+  }
 }
