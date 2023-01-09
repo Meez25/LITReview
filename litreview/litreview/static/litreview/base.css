@@ -212,9 +212,15 @@ header ul li:hover{
 form button[type="submit"]:hover {
     background-color: lightgrey;
     color: black;
+    cursor: pointer;
 }
 
 .buttons a:hover{
+    background-color: lightgrey;
+    color: black;
+}
+
+.button a:hover{
     background-color: lightgrey;
     color: black;
 }
