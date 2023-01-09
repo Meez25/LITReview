@@ -10,7 +10,7 @@ Then go in the LITReview folder
 
 ``` bash
 python3 -m venv env
-python3 env/bin/activate
+source env/bin/activate
 ```
 
 (env) should now be displayed on the left of your prompt
@@ -29,13 +29,11 @@ cd litreview
 python manage.py runserver
 ```
 
-A few user are already created :
+A few user are already created with some content :
 - admin with password toto
 - user1 with password toto
 - user2 with password toto
 - user3 with password toto
-
-There are no relation between them yet. Feel free to create them.
 
 With the admin account, you can go to http://127.0.0.1:8000/admin to log in as
 the admin

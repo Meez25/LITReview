@@ -1,10 +1,12 @@
 from django import forms
-from authentication.models import User
 
 from . import models
 
 
 class TicketForm(forms.ModelForm):
+    """
+    Form to update of create a ticket
+    """
     class Meta:
         model = models.Ticket
         fields = ("title", "description", "image")
@@ -12,6 +14,9 @@ class TicketForm(forms.ModelForm):
 
 
 class ReviewForm(forms.ModelForm):
+    """
+    Form to update or create a review
+    """
     class Meta:
         model = models.Review
         fields = ["headline", "rating", "body"]
@@ -24,6 +29,9 @@ class ReviewForm(forms.ModelForm):
 
 
 class FollowForm(forms.Form):
+    """
+    Form to allow one user to follow a second user
+    """
     followed_user = forms.CharField(
         label="Utilisateur à suivre",
         required=True,
@@ -32,4 +40,7 @@ class FollowForm(forms.Form):
 
 
 class UnfollowForm(forms.Form):
+    """
+    Form to remove the follow relation between two users
+    """
     user_to_unfollow = forms.CharField(widget=forms.HiddenInput, required=False)

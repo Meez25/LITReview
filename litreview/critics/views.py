@@ -15,6 +15,9 @@ from django.db.models import Q, CharField, Value
 
 @login_required
 def flux(request):
+    """
+    Function to display the "flux" page
+    """
     tickets = get_users_viewable_tickets(request.user)
     all_reviews = Review.objects.all()
     for review in all_reviews:
@@ -27,7 +30,8 @@ def flux(request):
     review = review.annotate(content_type=Value("REVIEW", CharField()))
 
     posts = sorted(
-        chain(review, tickets), key=lambda post: post.time_created, reverse=True
+        chain(review, tickets),
+        key=lambda post: post.time_created, reverse=True
     )
 
     context = {
@@ -38,6 +42,9 @@ def flux(request):
 
 @login_required
 def add_review(request, ticket_id):
+    """
+    Function to add a review to a ticket
+    """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     review_form = ReviewForm()
     if request.method == "POST":
@@ -57,13 +64,21 @@ def add_review(request, ticket_id):
 
 @login_required
 def my_posts(request):
+    """
+    View to display the user posts
+    """
     user = request.user
-    all_tickets = Ticket.objects.filter(user__exact=user).order_by("-time_created")
-    my_review = Review.objects.filter(user__exact=user).order_by("-time_created")
-    all_tickets = all_tickets.annotate(content_type=Value("TICKET", CharField()))
-    my_review = my_review.annotate(content_type=Value("REVIEW", CharField()))
+    all_tickets = Ticket.objects.filter(
+            user__exact=user).order_by("-time_created")
+    my_review = Review.objects.filter(
+            user__exact=user).order_by("-time_created")
+    all_tickets = all_tickets.annotate(
+            content_type=Value("TICKET", CharField()))
+    my_review = my_review.annotate(
+            content_type=Value("REVIEW", CharField()))
     posts = sorted(
-        chain(my_review, all_tickets), key=lambda post: post.time_created, reverse=True
+        chain(my_review, all_tickets),
+        key=lambda post: post.time_created, reverse=True
     )
 
     context = {
@@ -74,6 +89,9 @@ def my_posts(request):
 
 @login_required
 def abonnement(request):
+    """
+    View to display the follow page
+    """
     followed_users = UserFollows.objects.filter(
         user=request.user
     )  # Get the followed users list
@@ -92,7 +110,8 @@ def abonnement(request):
                 if user_follow == current_user:
                     context = {
                         "userfollow_form": form,
-                        "feedback": "Vous ne pouvez pas vous suivre vous-même.",
+                        "feedback":
+                        "Vous ne pouvez pas vous suivre vous-même.",
                         "followed_users": followed_users,
                     }
                     return render(request, "critics/abonnement.html", context)
@@ -101,7 +120,8 @@ def abonnement(request):
                     UserFollows.objects.create(
                         user=current_user, followed_user=user_follow
                     )
-                    followed_users = UserFollows.objects.filter(user=request.user)
+                    followed_users = UserFollows.objects.filter(
+                            user=request.user)
                     following_users = UserFollows.objects.filter(
                         followed_user=request.user
                     )
@@ -142,7 +162,8 @@ def abonnement(request):
 
             followed_users = UserFollows.objects.filter(user=request.user)
 
-            following_users = UserFollows.objects.filter(followed_user=request.user)
+            following_users = UserFollows.objects.filter(
+                    followed_user=request.user)
             context = {
                 "userfollow_form": form,
                 "followed_users": followed_users,
@@ -169,6 +190,9 @@ def abonnement(request):
 
 @login_required
 def modify_post(request, ticket_id):
+    """
+    View to modify a post
+    """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket_form = TicketForm(instance=ticket)
     if request.method == "POST":
@@ -187,6 +211,9 @@ def modify_post(request, ticket_id):
 
 @login_required
 def modify_review(request, review_id):
+    """
+    View to modify a review
+    """
     review = get_object_or_404(Review, id=review_id)
     ticket = review.ticket
     review_form = ReviewForm(instance=review)
@@ -207,6 +234,9 @@ def modify_review(request, review_id):
 
 @login_required
 def delete_post(request, ticket_id):
+    """
+    Function to delete a post
+    """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket.delete()
     return redirect("my_posts")
@@ -214,12 +244,18 @@ def delete_post(request, ticket_id):
 
 @login_required
 def delete_review(request, review_id):
+    """
+    Function to delete a review
+    """
     review = get_object_or_404(Review, id=review_id)
     review.delete()
     return redirect("my_posts")
 
 
 class TicketCreateView(LoginRequiredMixin, CreateView):
+    """
+    Class view to create a ticket
+    """
     form_class = TicketForm
     model = Ticket
     success_url = "/flux/"
@@ -233,6 +269,9 @@ class TicketCreateView(LoginRequiredMixin, CreateView):
 
 @login_required
 def create_review(request):
+    """
+    Function to create a review
+    """
     # Create two forms for the review form
     ticket_form = TicketForm()
     review_form = ReviewForm()
@@ -256,38 +295,47 @@ def create_review(request):
 
 
 def get_users_viewable_reviews(user):
+    """
+    Function to get the reviews a user can have access to depending on the
+    users he follows
+    """
     followed_users = get_followed_users(user)
     followed_users_id = [followed_user.id for followed_user in followed_users]
-    following_users = get_following_users(user)
-    following_users_id = [following_user.id for following_user in following_users]
-    review = Review.objects.all()
     review = Review.objects.filter(
-        Q(user=user) | Q(user__id__in=followed_users_id) | Q(ticket__user__id=user.id)
+        Q(user=user) | Q(user__id__in=followed_users_id) |
+        Q(ticket__user__id=user.id)
     )
     return review
 
 
 def get_users_viewable_tickets(user):
+    """
+    Function to get the tickets a user can have access to depending on the
+    users he follows
+    """
     followed_users = get_followed_users(user)
     followed_users_id = [followed_user.id for followed_user in followed_users]
-    following_users = get_following_users(user)
-    following_users_id = [following_user.id for following_user in following_users]
     tickets = Ticket.objects.filter(
         ~Q(review__user__id=user.id),
         Q(review__isnull=True) | ~Q(review__user__id__in=followed_users_id),
-        Q(review__isnull=True),
         Q(user=user) | Q(user__id__in=followed_users_id),
     )
     return tickets
 
 
 def get_following_users(user):
+    """
+    Function to get the following users a user have
+    """
     following_users = UserFollows.objects.filter(followed_user=user)
-    following_users_id = [following_user.id for following_user in following_users]
+    following_users_id = [user.id for user in following_users]
     return User.objects.filter(id__in=following_users_id)
 
 
 def get_followed_users(user):
+    """
+    Function to get the followed users a user have
+    """
     followed_users = UserFollows.objects.filter(user=user)
     followed_users_id = [
         followed_user.followed_user.id for followed_user in followed_users

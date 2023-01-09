@@ -29,7 +29,8 @@ form {
 }
 
 .button a {
-    height: 40px;
+    text-decoration: none;
+    color: black;
 }
 
 .button button{
