@@ -1,4 +1,3 @@
-import datetime
 from django.utils import timezone
 from django.test import TestCase
 from authentication.models import User
@@ -10,6 +9,10 @@ from .views import get_users_viewable_tickets, get_users_viewable_reviews
 
 
 class TicketDisplayedTests(TestCase):
+    """
+    Class to test the display of tickets in the "flux"
+    """
+
     def setUp(self):
         now = timezone.now()
         self.user1 = User.objects.create_user(

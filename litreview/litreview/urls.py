@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.contrib.auth.views import LoginView, LogoutView
-from django.urls import path, include
+from django.urls import path
 from django.conf import settings
 from django.conf.urls.static import static
 
@@ -39,10 +39,13 @@ urlpatterns = [
     ),
     path("flux/", critics.views.flux, name="flux"),
     path("posts/", critics.views.my_posts, name="my_posts"),
-    path("posts/<int:ticket_id>/modify", critics.views.modify_post, name="modify_post"),
-    path("posts/<int:ticket_id>/delete", critics.views.delete_post, name="delete_post"),
+    path("posts/<int:ticket_id>/modify", critics.views.modify_post,
+         name="modify_post"),
+    path("posts/<int:ticket_id>/delete", critics.views.delete_post,
+         name="delete_post"),
     path(
-        "posts/<int:ticket_id>/add_review", critics.views.add_review, name="add_review"
+        "posts/<int:ticket_id>/add_review", critics.views.add_review,
+        name="add_review"
     ),
     path(
         "review/<int:review_id>/modify",
@@ -69,4 +72,5 @@ urlpatterns = [
     ),
 ]
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)

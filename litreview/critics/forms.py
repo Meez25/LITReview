@@ -43,4 +43,5 @@ class UnfollowForm(forms.Form):
     """
     Form to remove the follow relation between two users
     """
-    user_to_unfollow = forms.CharField(widget=forms.HiddenInput, required=False)
+    user_to_unfollow = forms.CharField(widget=forms.HiddenInput,
+                                       required=False)

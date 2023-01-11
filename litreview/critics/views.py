@@ -1,6 +1,6 @@
 from itertools import chain
 
-from django.shortcuts import render, redirect, get_object_or_404, get_list_or_404
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.views.generic.edit import CreateView
 from critics.models import Ticket, Review, UserFollows
@@ -235,7 +235,7 @@ def modify_review(request, review_id):
 @login_required
 def delete_post(request, ticket_id):
     """
-    Function to delete a post
+    Function to delete a review
     """
     ticket = get_object_or_404(Ticket, id=ticket_id)
     ticket.delete()
